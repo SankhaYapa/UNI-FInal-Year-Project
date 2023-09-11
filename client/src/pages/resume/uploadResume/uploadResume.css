@@ -1,0 +1,56 @@
+.uploadPage {
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.uploadContainer {
+    width: 100%;
+    max-width: 700px;
+    margin: 20px 0px 100px 0px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 50px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 3px 0px #000000;
+    box-shadow: 0px 0px 3px 0px #000000;
+}
+
+.uploadDiv {
+    padding: 30px;
+}
+
+.uploadButton {
+    gap: 10px;
+    margin: 10px 0 10px;
+    background-color: #003580;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.uploadButton:hover {
+    background-color: #0071c2;
+    color: #ffffff;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.or {
+    color: gray;
+}
+
+.back {
+    color: #003580;
+    cursor: pointer;
+    font-weight: 600;
+}

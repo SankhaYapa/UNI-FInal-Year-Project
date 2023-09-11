@@ -1,0 +1,65 @@
+.profielLeft{
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #dadbdd;
+    padding: 30px;
+    font-size: 14px;
+    line-height: 130%;
+    width: 300px;
+    .imagewrapper{
+        display: flex;
+        justify-content: center;
+    }
+    .ProfileEdit{
+        display: flex;
+        justify-content: end;
+        width: 100%;
+        cursor: pointer;
+    }
+    img{
+        border-radius: 50%;
+        width: 150px;
+        align-items: center;
+        margin-top: 10px;
+    }
+    h1{
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .Location{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    .RecommendedPath{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        align-items: center;
+        span{
+            background-color:#110a69;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 10px;
+            color: white;
+        }
+    }
+    .SkillsDiv{
+        width: 100%;
+        
+        .Skills{
+            margin-top: 10px;
+            display: inline-block;
+            border-radius: 15px;
+            min-width: 40px;
+            text-align: center;
+            padding: 5px 12px;
+            margin: 0 10px 10px 0;
+            border: 1px solid #4affc6;
+            cursor: pointer;
+        }
+    }
+}
