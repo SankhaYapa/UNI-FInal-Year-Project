@@ -21,7 +21,7 @@ margin-left: 20px;
     box-sizing: content-box;
     position: relative;
     outline: none;
-    font-size: 16px;
+    font-size: 12px;
   }
   .tabs:not(:last-child){
     border-right: 1px solid #f0efef;

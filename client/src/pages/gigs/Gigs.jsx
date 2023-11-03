@@ -24,7 +24,6 @@ function Gigs() {
           return res.data;
         }),
   });
-
   console.log(data);
 
   const reSort = (type) => {

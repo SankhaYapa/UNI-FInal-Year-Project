@@ -15,13 +15,15 @@ import Message from "./pages/message/Message";
 import MyGigs from "./pages/myGigs/MyGigs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UploadResume from "./pages/resume/uploadResume/UploadResume";
-import { NewResume } from "./pages/resume/newResume/NewResume";
 import { BuildResume } from "./pages/resume/buildResume/BuildResume";
 import { Profile } from "./pages/profile/Profile";
 import HomeVideos from "./pages/pagesvideos/HomeVideos";
 import Videos from "./pages/pagesvideos/Video";
 import { Jobs } from "./pages/jobs/Jobs";
 import { EditAccount } from "./pages/editAcount/EditAccount";
+import NewResume from "./pages/resume/newResume/NewResume";
+import RecommendationsPage from "./pages/recommendations/RecommendationsPage";
+import { RecomendedCources } from "./pages/recommendations/RecomendedCources";
 
 function App() {
   const queryClient = new QueryClient();
@@ -88,8 +90,12 @@ function App() {
           element: <UploadResume />,
         },
         {
-          path: "/uploadResume/newResume",
+          path: "/uploadResume/newResume/",
           element: <NewResume />,
+        },
+        {
+          path: "/recommendations",
+          element: <RecommendationsPage />,
         },
         {
           path: "/uploadResume/buildResume",
@@ -101,7 +107,7 @@ function App() {
         },
         {
           path: "/recommendedCourses",
-          element: <HomeVideos />,
+          element: <RecomendedCources />,
         },
         {
           path: "/recommendedCourses/:id",

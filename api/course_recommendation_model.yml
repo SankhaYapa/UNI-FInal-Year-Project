@@ -1,0 +1,2 @@
+model_file: course_recommendation_model.joblib
+model_type: content_based

@@ -1,13 +1,11 @@
-// import express from "express";
-// import {
-//   createMessage,
-//   getMessages,
-// } from "../controllers/message.controller.js";
-// import { verifyToken } from "../middleware/jwt.js";
+import express from "express";
 
-// const router = express.Router();
+import { verifyToken } from "../middleware/jwt.js";
+import { createMessage, getMessages } from "../controller/message.controller.js";
 
-// router.post("/", verifyToken, createMessage);
-// router.get("/:id", verifyToken, getMessages);
+const router = express.Router();
 
-// export default router;
+router.post("/", verifyToken, createMessage);
+router.get("/:id", verifyToken, getMessages);
+
+export default router;

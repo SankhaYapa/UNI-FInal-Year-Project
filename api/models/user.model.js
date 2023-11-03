@@ -32,6 +32,14 @@ const userSchema = new Schema({
     type: String,
     required: false,
   },
+  skillPdf:{
+    type: String,
+    required: false,
+  },
+  careerPath:{
+    type: String,
+    required: false,
+  },
   isSeller: {
     type: Boolean,
     default:false

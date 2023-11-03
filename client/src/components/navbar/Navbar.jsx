@@ -44,19 +44,17 @@ function Navbar() {
           <span className="dot">.</span>
         </div>
         <div className="links">
-          <span>Fiverr Business</span>
-          <span>Explore</span>
-          <span>English</span>
+          <Link className="link" to="/recommendedCourses">
+            <span>Recommended Coruses</span>
+          </Link>
+
+          <Link className="link" to="/jobs">
+            <span>Explore Jobs</span>
+          </Link>
           {!currentUser?.isSeller && <span>Become a Seller</span>}
           {currentUser ? (
             <div className="user" onClick={() => setOpen(!open)}>
-              <img
-                src={
-                  currentUser.img ||
-                  "http://127.0.0.1:5173/public/img/noavatar.jpg"
-                }
-                alt=""
-              />
+              <img src={currentUser.img || "/img/noavatar.jpg"} alt="" />
               <span>{currentUser?.username}</span>
               {open && (
                 <div className="options">
@@ -67,6 +65,9 @@ function Navbar() {
                       </Link>
                       <Link className="link" to="/add">
                         Add New Gig
+                      </Link>
+                      <Link className="link" to="/profile">
+                        Profile
                       </Link>
                     </>
                   )}
@@ -87,8 +88,8 @@ function Navbar() {
               <Link to="/login" className="link">
                 Sign in
               </Link>
-              <Link to="/register">
-                <button className="joinbutton">Join</button>
+              <Link className="link" to="/register">
+                <button>Join</button>
               </Link>
             </>
           )}

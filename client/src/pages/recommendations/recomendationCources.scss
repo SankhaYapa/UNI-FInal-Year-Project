@@ -1,0 +1,103 @@
+
+
+.course-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Adjust this for horizontal spacing */
+  gap: 20px; /* Adjust the gap between items as needed */
+
+.course-card {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    width: 20%;
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      padding: 10px;
+      color: rgb(255, 255, 255);
+    }
+  
+    p {
+      margin: 5px 0;
+      font-size: 12px;
+    }
+  
+    .description {
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* Limit the description to two lines */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+      font-weight: bold;
+      /* If the text exceeds two lines, it will be truncated with an ellipsis. */
+    }
+    
+  
+    .expanded {
+      max-height: 1000px; /* Adjust as needed to show more content */
+    }
+  
+    button {
+      background-color: transparent;
+      border: none;
+      color: #007bff;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    div{
+      width: 100%;
+      display: flex;
+      justify-content: end;
+      a {
+        background-color: #007bff;
+        color: #fff;
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+   
+  }
+  
+}
+
+.star {
+  font-size: 1.4rem; // Adjust the size as needed
+  color: #FFD700; // Color for filled stars
+
+  &.filled {
+    color: #FFD700; // Color for filled stars
+  }
+
+  &.empty {
+    color: #ccc; // Color for empty stars
+  }
+}
+
+.star-rating {
+  display: flex;
+
+  .star {
+    margin-right: 5px; // Adjust the spacing between stars
+  }
+}
+.star-rating{
+  align-items: center;
+}

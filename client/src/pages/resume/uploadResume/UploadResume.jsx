@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const UploadResume = () => {
   const navigate = useNavigate();
+
   const handleClick1 = () => {
     navigate("./newResume");
   };

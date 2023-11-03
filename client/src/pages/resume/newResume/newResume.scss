@@ -1,0 +1,182 @@
+.uploadResumePage {
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.uploadResumeContainer {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px 0px 100px 0px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 50px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 4px 0px #000000;
+    box-shadow: 0px 0px 4px 0px #000000;
+   
+}
+.recomendations{
+    width: 100%;
+    max-width: 800px;
+    margin: 20px 0px 100px 0px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 50px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 4px 0px #000000;
+    box-shadow: 0px 0px 4px 0px #000000;
+}
+.recomendationsWrapper{
+    padding: 20px;
+    h3{
+        margin-bottom: 20px;
+        color: #343333;
+    }
+    h2{
+        margin-bottom: 20px;
+        color: #c10909;
+        text-align: center;
+    }
+    .btnDiv{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        button{
+            padding:5px 10px 5px 10px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #003580;
+            color: wheat;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 200px;
+            -webkit-box-shadow: 0px 0px 4px 0px #000000;
+    box-shadow: 0px 0px 4px 0px #000000;
+        }
+    }
+  
+}
+.resumeTitle {
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+.uploadResumeDiv {
+    padding: 30px;
+}
+
+.resumeSubDsc {
+    font-weight: 700;
+    color: #a6a6a6;
+}
+
+.resumeDsc {
+    font-size: 16px;
+    font-weight: 500;
+    color: #a6a6a6;
+}
+
+.uploadResumeButtonDiv {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.uploadResumeButton {
+    gap: 10px;
+    margin: 10px 0 10px;
+    background-color: #003580;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.uploadResumeButton:hover {
+    background-color: #0071c2;
+    color: #ffffff;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.or {
+    color: gray;
+}
+
+.back {
+    color: #003580;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.browseArea {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.browse {
+    margin-top: 10px;
+    background-color: rgb(215, 230, 244);
+    height: 150px;
+    width: 48%;
+    border-radius: 10px;
+    position: relative;
+    padding: 5px;
+    cursor: pointer;
+}
+.or{
+    margin-top: 10px;
+    height: 150px;
+    padding: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.browseInput {
+    margin-top: 10px;
+    background-color: rgb(255, 255, 255);
+    height: 150px;
+    width: 48%;
+    border-radius: 10px;
+    position: relative;
+    padding: 5px;
+}
+
+.browseLink {
+    color: #003580;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 10px;
+}
+.filename{
+    text-align: center;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.browseIcon {
+    color: #a6a6a6;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 32px;
+}
+
+.uploadIconBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    flex-direction: column;
+}
