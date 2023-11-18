@@ -2,24 +2,13 @@ import "./buildResume.scss";
 import Select from "react-select";
 import { useState } from "react";
 import React, { useEffect } from "react";
+import axios from "axios";
+
 
 export const BuildResume = () => {
-  // React state to manage selected options
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
-  const [manualSkill, setManualSkill] = useState(""); // State to store manually input skill
-
-  const addManualSkill = () => {
-    if (manualSkill.trim() !== "") {
-      setSelectedSkills((prevSkills) => [...prevSkills, manualSkill]);
-      setManualSkill(""); // Clear the manualSkill input field
-    }
-  };
-  // Function triggered on selection
-  function handleSelect(data) {
-    setSelectedOptions(data);
-  }
-
+  const [manualSkill, setManualSkill] = useState("");
   const [resumeData, setResumeData] = useState({
     name: "",
     ambition: "",
@@ -33,6 +22,10 @@ export const BuildResume = () => {
     linkedin: "",
     achievements: "",
   });
+
+  const handleSelect = (data) => {
+    setSelectedOptions(data);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,64 +42,46 @@ export const BuildResume = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(resumeData);
-  }, [resumeData]);
-  const handleSubmit = async () => {
-    if (!cvFile) {
-      alert("Please select a CV file.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("cvFile", cvFile);
-
-    try {
-      setShowProgress(true);
-
-      // Send the PDF file to your server for storage
-      const response = await axios.post(
-        `/users/upload-cv?userId=${userId}`,
-        formData,
-        {
-          onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            setProgress(percentCompleted);
-          },
-        }
-      );
-
-      // Handle the response from the server
-      setPythonResponse(response.data.recommendations);
-
-      // Generate and download the PDF
-      const pdfResponse = await axios.post("/generate-pdf", resumeData, {
-        responseType: "blob",
-      });
-
-      const blob = new Blob([pdfResponse.data], { type: "application/pdf" });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "resume.pdf";
-      a.click();
-    } catch (error) {
-      console.error("Error uploading CV:", error);
-    } finally {
-      setWaitingForResponse(false);
-      setShowProgress(false);
+  const addManualSkill = () => {
+    if (manualSkill.trim() !== "") {
+      setSelectedSkills((prevSkills) => [...prevSkills, manualSkill]);
+      setManualSkill("");
     }
   };
+
   const removeSelectedSkill = (index) => {
     const updatedSkills = [...selectedSkills];
     updatedSkills.splice(index, 1);
     setSelectedSkills(updatedSkills);
   };
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const userId = currentUser._id; // Change this depending on where you store the userId
+  console.log(userId)
+  const handleSubmit = async () => {
+    const allSkills = [...selectedOptions, ...selectedSkills];
+
+    // Update resumeData with all skills
+    setResumeData((prevData) => ({
+      ...prevData,
+      skills: allSkills,
+    }));
+
+    try {
+      // Send a request to create a text file on the backend with the user ID and resume data
+      await axios.post(`http://localhost:8800/api/users/create-file/${userId}`, {
+        content: JSON.stringify(resumeData),
+      });
+  
+    } catch (error) {
+      console.error("Error creating file:", error);
+    }
+  };
+  
+
   useEffect(() => {
     console.log(resumeData);
   }, [resumeData]);
+
   return (
     <div className="add">
       <div className="container">

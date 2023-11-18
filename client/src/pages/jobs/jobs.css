@@ -6,6 +6,13 @@
     height: 100vh;
     
 }
+.navBarImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    object-fit: cover;
+
+}
 .jobsWrapper{
     width: 100%;
     max-width: 1400px;
@@ -30,9 +37,15 @@ margin-top: 20px;
     
 }
 .addjobdiv{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.418);
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
 }
 .addJob{
     padding-left: 20px;
@@ -78,8 +91,8 @@ margin-top: 20px;
     border: 1px solid;
 }
 .Days{
- width: 70px;
-
+ width: 80px;
+padding: 5px 10px;
  border: 1px solid;
 }
 .postajob{
@@ -88,7 +101,8 @@ margin-top: 20px;
 }
 .postajobButton{
     padding:10px 20px 10px 20px;
-    background-color: rgb(7, 127, 19);
+    background-color: rgb(41, 7, 127);
+    cursor: pointer;
     color: white;
     border-radius: 5px;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
@@ -97,9 +111,53 @@ margin-top: 20px;
 }
 .TableBoost{
     margin-top: 20px;
+    width: 100%;
+    justify-content: center;
+}
+.text-center{
+    text-align: start;
 }
 .AddOffer{
     background-color: rgb(251, 255, 2);
     padding: 5px;
     border-radius: 5px;
+    width: 120px;
+    cursor: pointer;
 }
+.DeleteOffer{
+    background-color: rgb(255, 2, 2);
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    width: 120px;
+}
+th{
+    text-align: left;
+    padding: 10px;
+}
+td{
+    align-items: start;
+    text-align: start;
+  padding: 10px;
+}
+.tddiv{
+    display: flex;
+    align-items: center;
+   text-align: center;
+    margin-bottom: 5px;
+     width: 120px;
+}
+.header{
+    margin-bottom: 20px;
+}.rClose {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  .jobtitlediv{
+    display: flex;
+    justify-content: space-between;
+    
+  }

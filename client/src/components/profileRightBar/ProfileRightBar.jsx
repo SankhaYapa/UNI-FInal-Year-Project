@@ -10,6 +10,7 @@ import Gigs from "../../pages/gigs/Gigs";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import GigCard from "../gigCard/GigCard";
+import RecommendedJobs from "../../pages/recommendations/recomemmdedJobs";
 
 export const ProfileRightBar = () => {
   const [toggleState, setToggleState] = useState(1);
@@ -17,7 +18,7 @@ export const ProfileRightBar = () => {
     setToggleState(index);
   };
 
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["gigs"],
@@ -25,6 +26,15 @@ export const ProfileRightBar = () => {
       newRequest.get(`/gigs?userId=${currentUser._id}`).then((res) => res.data),
   });
   console.log();
+  const navigate = useNavigate();
+
+  const handleCreateGig=()=>{
+    navigate("./add");
+
+  }
+  
+
+    
   return (
     <div className="container">
       <div className="bloc-tabs">
@@ -32,23 +42,23 @@ export const ProfileRightBar = () => {
           className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(1)}
         >
-          <span>All Courses</span>
+          <span>All Recommended Courses</span>
         </button>
-        <button
+        {/* <button
           className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(2)}
         >
           <span>My Learning</span>
+        </button> */}
+        <button
+          className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+          onClick={() => toggleTab(2)}
+        >
+          <span>My Skill Ads</span>
         </button>
         <button
           className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(3)}
-        >
-          <span>Gigs</span>
-        </button>
-        <button
-          className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
-          onClick={() => toggleTab(4)}
         >
           <span>Recommended Jobs</span>
         </button>
@@ -61,17 +71,14 @@ export const ProfileRightBar = () => {
           <HomeVideos></HomeVideos>
         </div>
 
+      
+
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          My Learnings
-        </div>
-
-        <div
-          className={toggleState === 3 ? "content  active-content" : "content"}
-        >
           <div className="gigcreatebuttonwrapper">
-            <button className="gigcreatebutton">Create Gig +</button>
+          
+            <a className="gigcreatebutton" href="http://localhost:5173/add">Create Skill Ad +</a>
           </div>
           <div className="cards">
             {isLoading
@@ -81,6 +88,12 @@ export const ProfileRightBar = () => {
               : data.map((gig) => <GigCard key={gig._id} item={gig} />)}
           </div>
           <div className="TimelineContainer"></div>
+        </div>
+          <div
+          className={toggleState === 3 ? "content  active-content" : "content"}
+        >
+         Recommended Jobs
+         <RecommendedJobs/>
         </div>
       </div>
     </div>

@@ -14,12 +14,29 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 export const ProfileLeftBar = () => {
   const navigate = useNavigate();
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const handleButton = () => {
     navigate("./editprofile", { state: { currentUser } });
+  };const [data, setData] = useState();
+  console.log(currentUser._id)
+  const fetchCareerPath = async () => {
+    try {
+      const result = await axios.get(`http://localhost:8800/api/recommendations/careerPath/${currentUser._id}`);
+      console.log(result.data.careerPath)
+      setData(result.data.careerPath); // Update the state with the fetched data
+    } catch (error) {
+      console.error("Error fetching career path:", error);
+    }
   };
+
+  useEffect(() => {
+    fetchCareerPath(); // Call the fetchCareerPath function when the component mounts
+  }, []);
+  console.log(data)
   return (
     <div className="profielLeft">
       {currentUser.username == currentUser.username && (
@@ -62,7 +79,7 @@ export const ProfileLeftBar = () => {
           {/* <FontAwesomeIcon icon={faLocationPin}></FontAwesomeIcon> */}
           <h4> Recomeneded Path</h4>
         </div>
-        <span>Software Engineer</span>
+        <span>{data}</span>
       </div>
 
       <hr />

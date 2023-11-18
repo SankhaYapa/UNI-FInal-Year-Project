@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import getCurrentUser from "../../utils/getCurrentUser";
 import "./recomendationCources.scss";
+import { LinearProgress } from "@mui/material";
 
 // Define the StarRating component
 const StarRating = ({ rating }) => {
@@ -24,18 +25,20 @@ const StarRating = ({ rating }) => {
 
 export const RecomendedCources = () => {
   const [courses, setCourses] = useState([]);
+  const [showProgress, setShowProgress] = useState(true); 
   const currentUser = getCurrentUser();
   console.log(currentUser._id);
 
   useEffect(() => {
     // Define the URL of your server endpoint
-    const apiUrl = `http://localhost:8800/api/courses/${currentUser._id}`; // Replace with your actual endpoint
+    const apiUrl = `http://localhost:8800/api/recommendations/${currentUser._id}`; // Replace with your actual endpoint
 
     // Fetch the data when the component mounts
     axios
       .get(apiUrl)
       .then((response) => {
         setCourses(response.data);
+        setShowProgress(false);
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
@@ -51,9 +54,11 @@ export const RecomendedCources = () => {
 
   return (
     <div>
-      <h1>Recommended Courses</h1>
-      {courses.map((course, index) => (
+      <h1 className="nameRec">Recommended Courses</h1>
+      {showProgress && <LinearProgress /> /* Show the progress bar while loading data */}
+       {courses.map((course, index) => (
         <div key={index} className="course-list">
+         
           {course.courses.map((c, i) => (
             <div key={i} className="course-card">
               <div
@@ -78,7 +83,10 @@ export const RecomendedCources = () => {
               <p>Difficulty Level: {c.difficultyLevel}</p>
               <p>To be a: {course.careerPath}</p>
               <div>
-                <a href={c.courseURL} target="_blank" rel="noopener noreferrer">
+              <a
+                  href="#"
+                  onClick={() => window.open(c.courseURL, "_blank")}
+                >
                   Learn More
                 </a>
               </div>

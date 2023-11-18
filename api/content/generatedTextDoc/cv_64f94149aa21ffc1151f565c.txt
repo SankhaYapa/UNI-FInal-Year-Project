@@ -1,0 +1,1 @@
+{"name":"","ambition":"","photo":null,"description":"","skills":["HTML,CSS,JavaScript,React,Vue.js,Angular,Node.js,Responsive Design,Front-end Build Tools","HTML,CSS,JavaScript,React,Vue.js,Angular,Node.js,Responsive Design,Front-end Build Tools"],"experience":"","phoneNumber":"","email":"","address":"","linkedin":"","achievements":""}

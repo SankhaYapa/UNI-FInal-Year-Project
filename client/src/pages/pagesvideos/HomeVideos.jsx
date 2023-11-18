@@ -1,33 +1,102 @@
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Card from "../../components/componentsvideos/Card";
-import "./HomeVideos.css";
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 30px;
-`;
+import getCurrentUser from "../../utils/getCurrentUser";
+import "./HomeVideos.scss";
+import { LinearProgress } from "@mui/material";
+
+// Define the StarRating component
+const StarRating = ({ rating }) => {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    stars.push(
+      <span key={i} className={i <= rating ? "star filled" : "star empty"}>
+        ★
+      </span>
+    );
+  }
+
+  return (
+    <div className="star-rating">
+      <div className="stars">{stars}</div>
+      <span className="rating-value">{rating}</span>
+    </div>
+  );
+};
+
 
 const HomeVideos = () => {
-  const [courses, setcourses] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [showProgress, setShowProgress] = useState(true); 
+  const currentUser = getCurrentUser();
+  console.log(currentUser._id);
+
   useEffect(() => {
-    const fetchcourses = async () => {
-      const res = await axios.get("http://localhost:8800/api/courses/");
-      setcourses(res.data);
-      console.log(res.data);
-    };
-    fetchcourses();
+    // Define the URL of your server endpoint
+    const apiUrl = `http://localhost:8800/api/recommendations/${currentUser._id}`; // Replace with your actual endpoint
+
+    // Fetch the data when the component mounts
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        setCourses(response.data);
+        setShowProgress(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
   }, []);
+
+  console.log(courses);
+
+  const getRandomColor = () => {
+    // Generate a random color in hexadecimal format
+    return "#" + Math.floor(Math.random() * 16777215).toString(16);
+  };
+
   return (
-    <Container>
-      <div className="coursesWrapper">
-        {courses.map((p) => (
-          <Card key={p._id} course={p} />
-        ))}
-      </div>
-    </Container>
+    <div>
+    
+      {showProgress && <LinearProgress /> /* Show the progress bar while loading data */}
+       {courses.map((course, index) => (
+        <div key={index} className="course-list-profile">
+         
+          {course.courses.map((c, i) => (
+            <div key={i} className="course-card-profile">
+              <div
+                className="course-name"
+                style={{
+                  width: "100%", // Adjust the width as needed
+                  height: "100px", // Adjust the height as needed
+                  backgroundColor: getRandomColor(),
+                  textAlign: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center", // Random background color
+                }}
+              >
+                <h2>{c.name}</h2>
+              </div>
+              <div>
+              <p>
+                <StarRating rating={c.courseRating} />
+              </p>
+              <p>University: {c.university}</p>
+              <p>Difficulty Level: {c.difficultyLevel}</p>
+              <p>To be a: {course.careerPath}</p>
+              <div>
+              <a
+                  href="#"
+                  onClick={() => window.open(c.courseURL, "_blank")}
+                >
+                  Learn More
+                </a>
+              </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
   );
 };
 
