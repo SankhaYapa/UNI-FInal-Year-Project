@@ -6,13 +6,27 @@ const RecommendedJobs = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const userId=currentUser._id
+  const userId = currentUser._id;
+  const [data, setData] = useState();
+
+  const fetchCareerPath = async () => {
+    try {
+      const result = await axios.get(`http://localhost:8800/api/recommendations/careerPath/${currentUser._id}`);
+      console.log(result.data.careerPath);
+      setData(result.data.careerPath); // Update the state with the fetched data
+    } catch (error) {
+      console.error("Error fetching career path:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchRecommendedJobs = async () => {
       try {
-        const response = await newRequest.get(`http://localhost:8800/api/users/recommendJobs/${userId}`);
-        setRecommendedJobs(response.data.recommendedJobs);
-        setLoading(false);
+        if (data) {
+          const response = await newRequest.get(`http://localhost:8800/api/jobs/career/${data}`);
+          setRecommendedJobs(response.data.recommendedJobs);
+          setLoading(false);
+        }
       } catch (error) {
         console.error('Error fetching recommended jobs:', error);
         setError('Error fetching recommended jobs');
@@ -21,7 +35,11 @@ const RecommendedJobs = () => {
     };
 
     fetchRecommendedJobs();
-  }, [userId]);
+  }, [userId, data]);  // Add 'data' to the dependencies array
+
+  useEffect(() => {
+    fetchCareerPath(); // Call the fetchCareerPath function when the component mounts
+  }, []);
 
   return (
     <div>
@@ -34,7 +52,6 @@ const RecommendedJobs = () => {
           {recommendedJobs.map((job) => (
             <li key={job._id}>
               <p>{job.jobTitle}</p>
-              {/* Add more details as needed */}
             </li>
           ))}
         </ul>

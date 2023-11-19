@@ -15,6 +15,7 @@ const jobSchema = new Schema({
    
    }
   ],
+  recommendedCareerPath: { type: String, required: false },
 });
 
 const Job = mongoose.model("Job", jobSchema);
