@@ -92,7 +92,7 @@ export const ProfileRightBar = () => {
           <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-         Recommended Jobs
+       
          <RecommendedJobs/>
         </div>
       </div>

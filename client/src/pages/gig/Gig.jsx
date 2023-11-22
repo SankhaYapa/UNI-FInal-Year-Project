@@ -1,10 +1,11 @@
 import React from "react";
 import "./Gig.scss";
 import { Slider } from "infinite-react-carousel/lib";
-import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import Reviews from "../../components/reviews/Reviews";
+import axios from "axios";
 
 function Gig() {
   const { id } = useParams();
@@ -18,7 +19,8 @@ function Gig() {
   });
 
   const userId = data?.userId;
-
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+const currentUserId=user._id
   const {
     isLoading: isLoadingUser,
     error: errorUser,
@@ -31,7 +33,57 @@ function Gig() {
       }),
     enabled: !!userId,
   });
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
+  const handleContinue = async () => {
+const sellerId = dataUser._id;
+ console.log(sellerId)
+ console.log(user._id,)
+    // Check if a conversation already exists
+    try {
+      const existingConversationResponse = await axios.get(
+        `http://localhost:8800/api/conversations/single/${currentUserId}${sellerId}`
+      );
+      console.log(existingConversationResponse)
+   //   console.log("Hello",existingConversationResponse.data[0].id)
+      navigate(`/message/${currentUserId}${sellerId}`);
+      if (existingConversationResponse.data.length > 0) {
+        // If conversation exists, navigate to the existing conversation
+        const existingConversationId = existingConversationResponse.data[0].id;
+        console.log(existingConversationId)
+        navigate(`/message/${currentUserId}${sellerId}`);
+        return;
+      }
+    } catch (error) {
+      console.error("Error checking for existing conversation:", error);
+    }
+  
+    // If no existing conversation, create a new one
+    const conversationData = {
+      isSeller: true,
+      buyerId: currentUserId,
+      sellerId: sellerId,
+      userId: currentUserId,
+      to: sellerId,
+      readBySeller: true,
+      readByBuyer: false,
+    };
+    console.log(conversationData)
+    try {
+      const response = await axios.post(
+        "http://localhost:8800/api/conversations",
+        conversationData
+      );
+  
+      const conversationId = response.data.id;
+  
+      // Use navigate for redirection to the conversation page
+      navigate(`/message/${conversationId}`);
+    } catch (error) {
+      console.error("Error creating or navigating to conversation:", error);
+    }
+  };
   return (
     <div className="gig">
       {isLoading ? (
@@ -156,9 +208,7 @@ function Gig() {
                 </div>
               ))}
             </div>
-            <Link to={`/pay/${id}`}>
-              <button>Continue</button>
-            </Link>
+            <button onClick={handleContinue}>Continue</button>
           </div>
         </div>
       )}

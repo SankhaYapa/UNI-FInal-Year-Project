@@ -3,13 +3,13 @@ import Conversation from "../models/conversation.model.js";
 
 export const createConversation = async (req, res, next) => {
   const newConversation = new Conversation({
-    id: req.isSeller ? req.userId + req.body.to : req.body.to + req.userId,
-    sellerId: req.isSeller ? req.userId : req.body.to,
-    buyerId: req.isSeller ? req.body.to : req.userId,
+    id: req.body.userId + req.body.to,
+    sellerId: req.isSeller ? req.body.userId : req.body.to,
+    buyerId: req.isSeller ? req.body.to : req.body.userId,
     readBySeller: req.isSeller,
     readByBuyer: !req.isSeller,
   });
-
+console.log(newConversation.id)
   try {
     const savedConversation = await newConversation.save();
     res.status(201).send(savedConversation);
@@ -51,7 +51,7 @@ export const getSingleConversation = async (req, res, next) => {
 export const getConversations = async (req, res, next) => {
   try {
     const conversations = await Conversation.find(
-      req.isSeller ? { sellerId: req.userId } : { buyerId: req.userId }
+      req.isSeller ? { sellerId: req.body.userId } : { buyerId: req.body.userId }
     ).sort({ updatedAt: -1 });
     res.status(200).send(conversations);
   } catch (err) {

@@ -25,6 +25,7 @@ import NewResume from "./pages/resume/newResume/NewResume";
 import RecommendationsPage from "./pages/recommendations/RecommendationsPage";
 import { RecomendedCources } from "./pages/recommendations/RecomendedCources";
 
+
 function App() {
   const queryClient = new QueryClient();
 
@@ -65,6 +66,7 @@ function App() {
           path: "/messages",
           element: <Messages />,
         },
+      
         {
           path: "/message/:id",
           element: <Message />,

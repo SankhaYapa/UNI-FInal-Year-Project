@@ -18,11 +18,11 @@ const ConversationSchema = new Schema(
     },
     readBySeller: {
       type: Boolean,
-      required: true,
+      required: false,
     },
     readByBuyer: {
       type: Boolean,
-      required: true,
+      required: false,
     },
     lastMessage: {
       type: String,

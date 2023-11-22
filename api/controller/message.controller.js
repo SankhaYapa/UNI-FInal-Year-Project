@@ -5,9 +5,10 @@ import Conversation from "../models/conversation.model.js";
 export const createMessage = async (req, res, next) => {
   const newMessage = new Message({
     conversationId: req.body.conversationId,
-    userId: req.userId,
+    userId: req.body.userId,
     desc: req.body.desc,
   });
+  console.log(newMessage)
   try {
     const savedMessage = await newMessage.save();
     await Conversation.findOneAndUpdate(

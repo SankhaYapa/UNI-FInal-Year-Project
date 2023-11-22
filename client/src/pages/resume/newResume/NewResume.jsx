@@ -147,7 +147,7 @@ const NewResume = () => {
                     </span>
                   )}
                 </div>
-                <div className="or">or</div>
+                {/* <div className="or">or</div>
                 <textarea
                   className="browseInput"
                   name=""
@@ -156,7 +156,7 @@ const NewResume = () => {
                   rows="10"
                   value={cvText}
                   onChange={(e) => setCvText(e.target.value)}
-                ></textarea>
+                ></textarea> */}
               </div>
               <div className="uploadResumeButtonDiv">
                 <button className="uploadResumeButton" onClick={handleSubmit}>

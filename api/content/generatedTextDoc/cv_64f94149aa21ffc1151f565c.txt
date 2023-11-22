@@ -1,1 +1,1 @@
-{"name":"","ambition":"","photo":null,"description":"Marketing ","skills":[],"experience":"","phoneNumber":"","email":"","address":"","linkedin":"","achievements":""}
+{"name":"","ambition":"","photo":null,"description":"i like playing cricket video editting","skills":[],"experience":"","phoneNumber":"","email":"","address":"","linkedin":"","achievements":""}

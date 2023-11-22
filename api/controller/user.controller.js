@@ -51,7 +51,7 @@ export const uploadCv = (req, res) => {
       console.log(`CV file uploaded: ${filename}, saved to ${path}`);
 
       // Invoke the Python script with the uploaded file path as an argument
-      const pythonProcess = spawn('python', ['./using_pdf_recommendation.py', path]);
+      const pythonProcess = spawn('python', ['./futurepath_module.py', path]);
 
       let pythonResponse = "";
 
@@ -116,7 +116,7 @@ export const uploadCv = (req, res) => {
 export const createTextDoc = (req, res) => {
   const { userId } = req.params;
   const { content } = req.body;
-console.log(userId)
+  console.log(userId)
   const fileName = `cv_${userId}.txt`;
   const filePath = path.join("./content/generatedTextDoc/", fileName);
 
