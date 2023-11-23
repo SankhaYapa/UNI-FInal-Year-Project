@@ -1,32 +1,48 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 import "./Add.scss";
-import { gigReducer, INITIAL_STATE } from "../../reducers/gigReducer";
-import upload from "../../utils/upload";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import newRequest from "../../utils/newRequest";
-import { useNavigate } from "react-router-dom";
 import uploadFirebase from "../../utils/uploadFirebase";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Add = () => {
   const [singleFile, setSingleFile] = useState(undefined);
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const userId=user._id
+  const [formData, setFormData] = useState({
+    userId:userId,
+    title: "",
+    cat: "design",
+    cover: "",
+    images: [],
+    desc: "",
+    shortTitle: "",
+    shortDesc: "",
+    deliveryTime: 0,
+    revisionNumber: 0,
+    features: [],
+    price: 0,
+  });
 
-  const [state, dispatch] = useReducer(gigReducer, INITIAL_STATE);
+  const [featureInput, setFeatureInput] = useState("");
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    dispatch({
-      type: "CHANGE_INPUT",
-      payload: { name: e.target.name, value: e.target.value },
-    });
+    setFormData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
   };
+
   const handleFeature = (e) => {
     e.preventDefault();
-    dispatch({
-      type: "ADD_FEATURE",
-      payload: e.target[0].value,
-    });
-    e.target[0].value = "";
+    setFormData((prevData) => ({
+      ...prevData,
+      features: [...prevData.features, featureInput],
+    }));
+    setFeatureInput("");
   };
 
   const handleUpload = async () => {
@@ -41,31 +57,34 @@ const Add = () => {
         })
       );
       setUploading(false);
-      dispatch({ type: "ADD_IMAGES", payload: { cover, images } });
+      setFormData((prevData) => ({
+        ...prevData,
+        cover,
+        images,
+      }));
     } catch (err) {
       console.log(err);
     }
   };
+console.log(formData)
 
-  const navigate = useNavigate();
-
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: (gig) => {
-      return newRequest.post("/gigs", gig);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["myGigs"]);
-    },
-  });
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    mutation.mutate(state);
-    // navigate("/mygigs")
-  };
+    try {
+      // Send a POST request to your API endpoint
+      const response = await axios.post("http://localhost:8800/api/gigs", formData);
 
+      // Handle the response as needed
+      console.log(response.data);
+
+      // Redirect to a new page if needed
+      navigate("/mygigs");
+    } catch (error) {
+      // Handle errors
+      console.error("Error submitting gig:", error);
+    }
+  };
+console.log(formData)
   return (
     <div className="add">
       <div className="container">
@@ -142,15 +161,25 @@ const Add = () => {
             />
             <label htmlFor="">Add Features</label>
             <form action="" className="add" onSubmit={handleFeature}>
-              <input type="text" placeholder="e.g. page design" />
+              <input
+                type="text"
+                placeholder="e.g. page design"
+                value={featureInput}
+                onChange={(e) => setFeatureInput(e.target.value)}
+              />
               <button type="submit">add</button>
             </form>
             <div className="addedFeatures">
-              {state?.features?.map((f) => (
-                <div className="item" key={f}>
+              {formData?.features?.map((f, index) => (
+                <div className="item" key={index}>
                   <button
                     onClick={() =>
-                      dispatch({ type: "REMOVE_FEATURE", payload: f })
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        features: prevData.features.filter(
+                          (feature) => feature !== f
+                        ),
+                      }))
                     }
                   >
                     {f}

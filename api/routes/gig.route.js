@@ -5,7 +5,7 @@ import { createGig, deleteGig, getGig, getGigs } from "../controller/gig.control
 
 const router = express.Router();
 
-router.post("/", verifyToken, createGig);
+router.post("/",createGig);
 router.delete("/:id", verifyToken, deleteGig);
 router.get("/single/:id", getGig);
 router.get("/",getGigs);
